@@ -1,0 +1,55 @@
+body {
+    background-color: #ECF0F1;
+    font-family: cursive;
+}
+
+.navbar {
+    background-color: #2C3E50;
+}
+
+.navbar-nav {
+    border-left: 2px solid #fff;
+    font-size: 24px;
+}
+
+.navbar-brand {
+    font-family: 'Lobster', cursive;
+    font-size: 30px;
+}
+
+a,
+.nav-link,
+.perfil {
+    color: #fff;
+}
+
+.navbar-brand:hover,
+.navbar-brand:focus,
+.nav-link:hover,
+.nav-link:focus {
+    color: #c2c2c2;
+}
+
+main {
+    padding: 30px;
+}
+
+.efeito-borda {
+    display: inline-block;
+    border-radius: 10px;
+    padding-bottom: 5px;
+    /* Espaço entre o texto e a borda */
+    border-bottom: 2px solid transparent;
+    /* Define a espessura */
+    border-image-source: linear-gradient(to right, #2C3E50, transparent);
+    border-image-slice: 1;
+}
+
+.link-home{
+    color: #000;
+    text-decoration: none;
+}
+
+.link-home:hover{
+    opacity: 0.5;
+}

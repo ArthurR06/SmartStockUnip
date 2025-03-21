@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="./CSS/style.css">
+
+    <!--favcoin-->
+    <link rel="icon" href="./img/icone nav.png" type="image/png">
+
+    <title>SmartStock | Estoque</title>
+</head>
+
+<body>
+    <div id="navbar-container"></div>
+
+    <main>
+        <h2 class="mb-3">Estoque</h2>
+        <div class="row mb-5 d-flex align-items-center">
+            <div class="col-md-5">
+                <input id='input-busca' type="text" class="form-control"
+                    placeholder="Busque pelo ID da movimentação" />
+            </div>
+            <div class="col-md-4 d-flex gap-2">
+                <button id='btn-busca' class="btn btn-primary btn-md d-flex align-items-center justify-content-center"
+                    style="background-color: #2C3E50;border: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                    </svg>
+                </button>
+                <button type="button" class="btn btn-success btn-md" data-bs-toggle="modal"
+                    data-bs-target="#modalEntrada" id="btnAdicionar-Produto">
+                    Registrar movimentação
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="d-flex align-items-center">
+                <table class="table table-striped table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tipo de Movimento</th>
+                            <th scope="col">Nº nota</th>
+                            <th scope="col">Fornecedor</th>
+                            <th scope="col">Data de emissão</th>
+                            <th scope="col">Valor total</th> 
+                            <th scope="col">Ver detalhes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela-lancamento">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="pagination d-flex align-items-center">
+            <button id="btn-anterior" class="btn btn-secondary me-2 btn-sm">Anterior</button>
+            <span id="pagina-atual">Página 1</span>
+            <button id="btn-proximo" class="btn btn-secondary ms-2 btn-sm">Próximo</button>
+        </div>
+
+
+    </main>
+
+
+
+
+
+
+    <!-- Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <script src="./js/estoque.js"></script>
+
+    <script src="./js/narvbar.js"></script>
+
+</body>
+
+
+<!-- Modal Entrada -->
+<div class="modal fade" id="modalEntrada" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Lançamento de Estoque</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row">
+                    <!-- Seletor de Entrada ou Saída -->
+                    <div class="mb-3 col-md-5">
+                        <label for="tipoMovimentacao" class="form-label fs-5">Tipo de Movimentação</label>
+                        <select class="form-select" id="tipoMovimentacao" onchange="atualizarModal()">
+                            <option>Selecione uma opção</option>
+                            <option value="entrada">Entrada</option>
+                            <option value="saida">Saída</option>
+                        </select>
+                    </div>
+
+                    <!-- Campos de Entrada (só aparecem se for "Entrada") -->
+                    <div id="camposEntrada">
+                        <div class="mb-3 col-md-5">
+                            <label for="NumeroNota" class="form-label fs-5">Nº Nota</label>
+                            <input class="form-control" name="NumeroNota" id="NumeroNota">
+                        </div>
+                        <div class="mb-3 col-md-5">
+                            <label for="selectSupplier" class="form-label fs-5">Fornecedor</label>
+                            <select class="form-select" name="selectSupplier" id="selectSupplier">
+                            </select>
+                        </div>
+                    </div>
+
+                    <hr />
+                    
+                    <div class="mb-3 col-md-5">
+                        <label for="productId" class="form-label fs-5">Produto</label>
+                        <select class="form-select" name="productId" id="productId">
+                            <!-- Opções serão preenchidas via JS -->
+                        </select>
+                    </div>
+                    <div class="mb-3 col-md-3">
+                        <label for="price" class="form-label fs-5">Preço</label>
+                        <input type="text" name="price" id="price" class="form-control">
+                    </div>
+                    <div class="mb-3 col-md-3">
+                        <label for="inputQuatityMoviment" class="form-label fs-5">Quantidade</label>
+                        <input type="number" name="inputQuatityMoviment" id="inputQuatityMoviment" class="form-control">
+                    </div>
+                    <div class="mb-3 col-md-1 d-flex align-items-end">
+                        <button type="button" class="btn btn-success" id="addProductBtn" onclick="addProdutoNota()">+</button>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Preço</th>
+                                <th>Quantidade</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productList">
+                            <!-- Linhas serão adicionadas aqui dinamicamente -->
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" id="btnEntrada" onclick="processarSaidaEstoque()">incluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</html>

@@ -1,0 +1,81 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lobster', cursive;
+  color: #404040;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: #2C3E50;
+  background-image: url(../img/SS\ Fundo.jpg);
+  background-size: cover;
+  background-position: 50%;
+}
+
+form {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+h1 {
+  font-size: 25px;
+}
+
+.barra-horizontal {
+  background-color: #2C3E50;
+  height: 5px;
+  width: 210px;
+}
+
+.campo-input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.titulo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+button {
+  padding: 10px;
+  align-self: center;
+  width: 160px;
+  border-radius: 5px;
+  background-color: #256a8a;
+  border: solid 1px #256a8a;
+  border-right-width: 4px;
+  border-bottom-width: 4px;
+  font-size: 16px;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.btn-entrar {
+  border-radius: 5px;
+  background-color: #256a8a;
+  color: white;
+  border: none;
+}
+
+.btn-entrar:hover {
+  background-color: #1d526b;
+  border-radius: 5px;
+}
+
+input {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: #f1f1f1;
+}

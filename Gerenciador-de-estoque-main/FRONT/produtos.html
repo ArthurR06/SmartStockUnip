@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="./CSS/style.css">
+    
+    <!--favcoin-->
+    <link rel="icon" href="./img/icone nav.png" type="image/png">
+    
+    <title>SmartStock | Produtos</title>
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+
+    <main>
+            <h2 class="mb-3">Produtos</h2>
+            <div class="row mb-5 d-flex align-items-center">
+                <div class="col-md-5">
+                    <input id='input-busca' type="text" class="form-control" placeholder="Busque pelo nome ou id do produto"/>
+                </div>
+                <div class="col-md-4 d-flex gap-2">
+                    <button id='btn-busca' onclick="fetchProduct()" class="btn btn-primary btn-lg d-flex align-items-center justify-content-center" style="background-color: #2C3E50;border: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </button>
+                    <button id="btnAdicionar-Produto" type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                        Adicionar Produto
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="d-flex align-items-center">
+                    <table class="table table-striped table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col">Código</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Categoria</th>
+                                <th scope="col">Descrição</th>
+                                <th scope="col">Qtd. mínima</th>
+                                <th scope="col">Qtd. Estoque</th>
+                                <th scope="col">Uni. Medida</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableListProducts-body">                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="pagination d-flex align-items-center">
+                <button id="btn-anterior" class="btn btn-secondary me-2">Anterior</button>
+                <span id="pagina-atual">Página 1</span>
+                <button id="btn-proximo" class="btn btn-secondary ms-2">Próximo</button>
+            </div>
+            
+            
+    </main>
+
+
+
+ 
+
+
+    <!-- Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script src="./js/produtos.js"></script>
+    <script src="js/narvbar.js"></script>
+
+    </body>
+
+    <!-- Modal incluir Produto -->
+    <!-- Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Adicionar Produto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulário de Adição de Produto -->
+                    <form id="addProductForm">
+                        <div class="mb-3">
+                            <label for="productName" class="form-label">Nome <span style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="productName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Descrição <span style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="description" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="quantityMin" class="form-label">Quantidade mínima em estoque <span style="color: red;">*</span></label>
+                            <input type="number" class="form-control" id="quantityMin" required>
+                        </div>
+                    
+                        <div class="mb-3">
+                            <label for="unityMeasure" class="form-label">Unidade de medida <span style="color: red;">*</span></label>
+                            <select type="text" class="form-select" id="unityMeasure" step="0.01" required>
+                                <option value="UN">Un</option>
+                                <option value="KG">Kg</option>
+                                <option value="Pç">Pç</option>
+                                <option value="L">L</option>
+                                <option value="mL">ml</option>
+                            </select>
+                        </div>
+                    
+                        
+                        <div class="mb-3">
+                            <label for="idCategory" class="form-label">Categoria <span style="color: red;">*</span></label>
+                            <select type="text" class="form-select" id="productCategory"  required>
+                                <option value="" disabled selected>Selecione uma opção</option>
+                            </select>
+                        </div>
+                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary" id="saveProductButton" onclick="createProduct(event)">Salvar Produto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</html>

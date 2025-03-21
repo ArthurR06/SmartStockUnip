@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="./CSS/style.css">
+
+    <!--favcoin-->
+    <link rel="icon" href="./img/icone nav.png" type="image/png">
+    
+    <title>SmartStock | Fornecedores</title>
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+
+    <main>
+            <h2 class="mb-3">Fornecedores</h2>
+            <div class="row mb-5 d-flex align-items-center">
+                <div class="col-md-5">
+                    <input id='input-busca' type="text" class="form-control" placeholder="Busque pela Razão Social ou ID do fornecedor"/>
+                </div>
+                <div class="col-md-4 d-flex gap-2">
+                    <button id='btn-busca' onclick="fetchSuppplier()" class="btn btn-primary btn-lg d-flex align-items-center justify-content-center" style="background-color: #2C3E50;border: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </button>
+                    <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#addFornecedor">
+                        Cadastrar Fornecedor
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="d-flex align-items-center">
+                    <table class="table table-striped table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col">Código</th>
+                                <th scope="col">Razão Social</th>
+                                <th scope="col">CNPJ</th>
+                                <th scope="col">telefone</th>
+                                <th scope="col">E-mail</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-fornecedores">                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="pagination d-flex align-items-center">
+                <button id="btn-anterior" class="btn btn-secondary me-2">Anterior</button>
+                <span id="pagina-atual">Página 1</span>
+                <button id="btn-proximo" class="btn btn-secondary ms-2">Próximo</button>
+            </div>
+            
+            
+    </main>
+
+
+
+ 
+
+
+    <!-- Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script src="./js/fornecedor.js"></script>
+    <script src="js/narvbar.js"></script>
+
+    </body>
+
+    <!-- Modal incluir Produto -->
+    <!-- Modal -->
+    <div class="modal fade" id="addFornecedor" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addFornecedorModalLabel">Cadastrar Fornecedor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulário de Adição de Produto -->
+                    <form id="create-supplier-form">
+                        <!-- Linha para Razão Social e CNPJ -->
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="supplier-name" class="form-label">Razão Social <span style="color: red;">*</span></label>
+                                <input id="supplier-name" type="text" class="form-control" placeholder="Razão Social" required>
+                            </div>
+                            <div class="col">
+                                <label for="supplier-cnpj" class="form-label">CNPJ <span style="color: red;">*</span></label>
+                                <input id="supplier-cnpj" type="text" class="form-control" placeholder="36519870000172" required>
+                            </div>
+                        </div>
+                    
+                        <!-- Linha para E-mail e Telefone -->
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="supplier-email" class="form-label">E-mail <span style="color: red;">*</span></label>
+                                <input id="supplier-email" type="email" class="form-control" placeholder="E-mail" required>
+                            </div>
+                            <div class="col">
+                                <label for="supplier-phone" class="form-label">Telefone <span style="color: red;">*</span></label>
+                                <input id="supplier-phone" type="text" class="form-control" placeholder="11956084352" required>
+                            </div>
+                        </div>
+                    
+                        
+                    </form>
+
+                    <form id="FormEndereço">
+                        <!-- Linha para CEP, UF, Cidade e Bairro -->
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="supplier-cep" class="form-label">CEP <span style="color: red;">*</span></label>
+                                <input id="supplier-cep" type="text" class="form-control" placeholder="03784990" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="supplier-state" class="form-label">Estado <span style="color: red;">*</span></label>
+                                <input id="supplier-state" type="text" class="form-control" placeholder="UF" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="supplier-city" class="form-label">Cidade <span style="color: red;">*</span></label>
+                                <input id="supplier-city" type="text" class="form-control" placeholder="Cidade" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="supplier-neighborhood" class="form-label">Bairro <span style="color: red;">*</span></label>
+                                <input id="supplier-neighborhood" type="text" class="form-control" placeholder="Bairro" required>
+                            </div>
+                        </div>
+                    
+                        <!-- Linha para Endereço e Número -->
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="supplier-public-place" class="form-label">Logradouro <span style="color: red;">*</span></label>
+                                <input id="supplier-public-place" type="text" class="form-control" placeholder="logradouro" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="supplier-number" class="form-label">Numero <span style="color: red;">*</span></label>
+                                <input id="supplier-number" type="text" class="form-control" placeholder="Número" required>
+                            </div>
+                        </div>
+                    
+                        <!-- Complemento -->
+                        <div class="mb-3">
+                            <label for="supplier-complement" class="form-label">Complemento</label>
+                            <input id="supplier-complement" type="text" class="form-control" placeholder="Complemento">
+                        </div>
+
+                        <button type="button" class="btn btn-primary btn-sm" id="saveAddressButton" onclick="cadastrarEndereco();">Salvar endereço</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary" id="saveSupplierButton" onclick="cadastrarFornecedor();">Cadastrar Fornecedor</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</html> 
